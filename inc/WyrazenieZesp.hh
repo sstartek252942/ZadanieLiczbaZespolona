@@ -11,8 +11,6 @@
  */
 enum Operator { Op_Dodaj, Op_Odejmij, Op_Mnoz, Op_Dziel };
 
-
-
 /*
  * Modeluje pojecie dwuargumentowego wyrazenia zespolonego
  */
@@ -27,9 +25,12 @@ struct WyrazenieZesp {
  * Funkcje ponizej nalezy zdefiniowac w module.
  *
  */
+std::istream & operator >>(std::istream & strm, WyrazenieZesp  WyrZ);
+std::istream & operator >>(std::istream & strm, Operator Op);
 
+std::ostream & operator <<(std::ostream & strm, WyrazenieZesp  WyrZ);
+std::ostream & operator <<(std::ostream & strm, Operator Op);
 
-void Wyswietl(WyrazenieZesp  WyrZ);
 LZespolona Oblicz(WyrazenieZesp  WyrZ);
 
 #endif

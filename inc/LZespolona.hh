@@ -17,16 +17,17 @@ struct  LZespolona {
 };
 
 
-bool Wczytaj (LZespolona & Skl);
+std::istream & operator >>(std::istream & strm, LZespolona & Skl);
+std::ostream & operator <<(std::ostream & strm, LZespolona Skl);
+
 LZespolona Utworz (double re, double im);
-void Wyswietl (LZespolona);
 
 /*
  * Dalej powinny pojawic sie zapowiedzi definicji bez przeciazen operatorow
  */
 
-LZespolona  SZ (LZespolona  Skl);
-double	  MZ (LZespolona  Skl);
+LZespolona  Sprzezenie (LZespolona  Skl);
+double	  Modul (LZespolona  Skl);
 
 /*
  * Dalej powinny pojawic sie zapowiedzi definicji przeciazen operatorow

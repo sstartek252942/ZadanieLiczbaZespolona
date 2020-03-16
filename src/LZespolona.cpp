@@ -2,18 +2,7 @@
 #include <cmath>
 #include "LZespolona.hh"
 
-bool Wczytaj (LZespolona & Skl)
-{
-  std::cout<<"   Twoja odpowiedz: ";
-  char znak;
-  std::cin>>znak;
-  if (znak != '(') return false; 
-  std::cin>>Skl.re>>Skl.im>>znak;
-  if (znak != 'i') return false; 
-  std::cin>>znak;
-  if (znak != ')') return false; 
-  return true;
-}
+/****************************************Praca na liczbach zespolonych****************************************/
 
 LZespolona Utworz (double re, double im)
 {
@@ -23,15 +12,43 @@ LZespolona Utworz (double re, double im)
   return Wynik;
 }
 
-void Wyswietl (LZespolona Skl)
+/*Praca na operatorach przesuniecia*/
+
+/*
+ * Wczytywanie ze strumienia liczby zespolonej
+ */
+std::istream & operator >>(std::istream & strm, LZespolona & Skl)
 {
-  std::cout << '(' << Skl.re << std::showpos << Skl.im << std::noshowpos << 'i' << ')';// << std::endl;
+  char znak;
+  strm>>znak;
+  if (znak != '(') 
+    strm.setstate(std::ios::failbit); 
+  strm>>Skl.re>>Skl.im>>znak;
+  if (znak != 'i') 
+    strm.setstate(std::ios::failbit); 
+  strm>>znak;
+  if (znak != ')') 
+    strm.setstate(std::ios::failbit); 
+  return strm;
 }
+
+/*
+ * Przekazywanie do strumienia liczby zespolonej
+ */
+std::ostream & operator <<(std::ostream & strm, LZespolona Skl)
+{
+  strm << '(' << Skl.re << std::showpos << Skl.im << std::noshowpos << 'i' << ')';// << std::endl;
+  return strm;
+}
+
+
+/****************************************Obliczenia****************************************/
+
 
 /*~
  * Sprzezenie zespolone
  */
-LZespolona SZ (LZespolona  Skl)
+LZespolona Sprzezenie (LZespolona  Skl)
 {
   Skl.im *= -1;
   return Skl;
@@ -40,10 +57,14 @@ LZespolona SZ (LZespolona  Skl)
 /*~
  * Modul liczby zespolonej
  */
-double MZ (LZespolona  Skl)
+double Modul (LZespolona  Skl)
 {
   return sqrt((Skl.re * Skl.re) + (Skl.im * Skl.im));
 }
+
+/*!
+ * Praca na operatorach arytmetycznych
+ */
 
 LZespolona  operator / (LZespolona  Skl,  double  a)
 {
@@ -52,9 +73,11 @@ LZespolona  operator / (LZespolona  Skl,  double  a)
   return Skl;
 }
 
+/*Operacje porownania liczb zespolonych*/
+
 bool  operator == (LZespolona  Skl1,  LZespolona  Skl2)
 {
-  return (Skl2.im == Skl2.im && Skl1.re == Skl2.re);
+  return (Skl1.im == Skl2.im && Skl1.re == Skl2.re);
 }
 
 bool  operator != (LZespolona  Skl1,  LZespolona  Skl2)
@@ -101,6 +124,6 @@ LZespolona  operator * (LZespolona  Skl1,  LZespolona  Skl2)
 LZespolona  operator / (LZespolona  Skl1,  LZespolona  Skl2)
 {
   LZespolona  Wynik;
-  Wynik = (Skl1 * SZ(Skl2)) / (MZ(Skl2)*MZ(Skl2));
+  Wynik = (Skl1 * Sprzezenie(Skl2)) / (Modul(Skl2)*Modul(Skl2));
   return Wynik;
 }

@@ -7,31 +7,51 @@
  * w pliku naglowkowym.
  */
 
-void Wyswietl(WyrazenieZesp  WyrZ)
+std::ostream & operator << (std::ostream & strm, WyrazenieZesp WyrZ)
 {
-  std::cout<<":? Podaj wynik operacji: ";
-  Wyswietl(WyrZ.Arg1);
-  switch (WyrZ.Op)
-  {
-  	case Op_Dodaj: 	std::cout<<" + "; break;
-  	case Op_Odejmij:std::cout<<" - "; break;
-  	case Op_Mnoz: 	std::cout<<" * "; break;
-  	case Op_Dziel: 	std::cout<<" / "; break;
-  }
-  Wyswietl(WyrZ.Arg2);
-  std::cout<<" ="<<std::endl;
+  strm<<WyrZ.Arg1<<WyrZ.Op<<WyrZ.Arg2;
+  return strm;
 }
 
+std::ostream & operator << (std::ostream & strm, Operator Op)
+{
+  switch (Op)
+  {
+  	case Op_Dodaj:   strm<<" + "; break;
+  	case Op_Odejmij: strm<<" - "; break;
+  	case Op_Mnoz:    strm<<" * "; break;
+  	case Op_Dziel:   strm<<" / "; break;
+  }
+  return strm;
+}
 
+std::istream & operator >> (std::istream & strm, WyrazenieZesp WyrZ)
+{
+  strm >> WyrZ.Arg1 >> WyrZ.Op >> WyrZ.Arg2;
+  return strm;
+}
+
+std::istream & operator >> (std::istream & strm, Operator Op)
+{
+  char znak;
+  strm >> znak;
+  switch(znak) {
+    case '+': Op = Op_Dodaj;
+    case '-': Op = Op_Odejmij;
+    case '*': Op = Op_Mnoz;  
+    case '/': Op = Op_Dziel;
+  }
+  return strm;
+}
 
 LZespolona Oblicz(WyrazenieZesp  WyrZ)
 {
   switch (WyrZ.Op)
   {
-  	case 0: 	 return WyrZ.Arg1 + WyrZ.Arg2; break;
-  	case 1: return WyrZ.Arg1 - WyrZ.Arg2; break;
-  	case 2: 	 return WyrZ.Arg1 * WyrZ.Arg2; break;
-  	case 3: 	 return WyrZ.Arg1 / WyrZ.Arg2; break;
+  	case Op_Dodaj:   return WyrZ.Arg1 + WyrZ.Arg2; break;
+  	case Op_Odejmij: return WyrZ.Arg1 - WyrZ.Arg2; break;
+  	case Op_Mnoz:    return WyrZ.Arg1 * WyrZ.Arg2; break;
+  	case Op_Dziel:   return WyrZ.Arg1 / WyrZ.Arg2; break;
   }
   std::cout << "Blad programu"<<std::endl;
   return WyrZ.Arg1;

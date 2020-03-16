@@ -23,7 +23,7 @@ void Bledna (Statystyka & Stats)
 
 double Procent (Statystyka & Stats)
 {
-  return Stats.p / (Stats.b+Stats.p)*100;
+  return Stats.p * 100 / (Stats.b+Stats.p);
 }
 
 void Wyswietl (Statystyka & Stats)

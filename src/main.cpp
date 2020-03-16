@@ -41,32 +41,38 @@ int main(int argc, char **argv)
   WyrazenieZesp   WyrZ_PytanieTestowe;
   
   while (PobierzNastpnePytanie(&BazaT,&WyrZ_PytanieTestowe)) {
-    Wyswietl(WyrZ_PytanieTestowe);
+    cout <<"  :? Oblicz: " << WyrZ_PytanieTestowe << endl;
 
     LZespolona Skl; bool flag;
 
-    flag = Wczytaj(Skl);
+    cout << "  :o Twoja odpowiedz: "; 
+    cin >> Skl;
+    flag = cin.good();
     if (!flag){
-      cout<<"Blad zapisu liczby zespolonej. Sprobuj jeszcze raz."<<endl<<endl;
-      flag = Wczytaj(Skl);
+      cout << "  :! Blad zapisu liczby zespolonej. Sprobuj jeszcze raz."<<endl<<endl;
+      cin.clear( ); cin.ignore(10000,'\n');
+      cout << "  :o Twoja odpowiedz: "; 
+      cin >> Skl;
+      flag = cin.good();
     }
 
     if (flag){
       if(Skl == Oblicz(WyrZ_PytanieTestowe)){
         Poprawna(Stats);
-        cout<<":) Odpowiedz poprawna"<<endl;
+        cout<<"  :) Odpowiedz poprawna"<<endl<<endl;
       }
       else {
         Bledna(Stats);
-        cout<<":( Blad. Prawidlowym wynikiem jest: "; Wyswietl(Skl); cout<<endl;
+        cout << "  :( Blad. Prawidlowym wynikiem jest: " << Oblicz(WyrZ_PytanieTestowe) << endl << endl;
       }
     } 
-    else
-    cout<<"Blad zapisu liczby zespolonej po raz 2. Brak mozliwosci poprawy"<<endl;
- 
+    else{
+      cout << "  :! Blad zapisu liczby zespolonej po raz 2. Brak mozliwosci poprawy" << endl << endl;
+      Bledna(Stats);
+    }
+
     cout<<endl;
-    cin.clear( );
-    cin.ignore(10000,'\n');
+    cin.clear( ); cin.ignore(10000,'\n');
   }
   Wyswietl(Stats);
 
