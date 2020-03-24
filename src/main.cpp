@@ -40,41 +40,49 @@ int main(int argc, char **argv)
 
   WyrazenieZesp   WyrZ_PytanieTestowe;
   
-  while (PobierzNastpnePytanie(&BazaT,&WyrZ_PytanieTestowe)) {
+  while (PobierzNastpnePytanie(&BazaT,&WyrZ_PytanieTestowe)) 
+  {
+    LZespolona Skl, Wynik = Oblicz(WyrZ_PytanieTestowe); bool flag = true; int i = 1;
+
     cout <<"  :? Oblicz: " << WyrZ_PytanieTestowe << endl;
 
-    LZespolona Skl; bool flag;
-
-    cout << "  :o Twoja odpowiedz: "; 
-    cin >> Skl;
-    flag = cin.good();
-    if (!flag){
-      cout << "  :! Blad zapisu liczby zespolonej. Sprobuj jeszcze raz."<<endl<<endl;
-      cin.clear( ); cin.ignore(10000,'\n');
+    do
+    {
+      if (!flag)
+      {
+        cout << "  :! Blad zapisu liczby zespolonej. Sprobuj jeszcze raz."<<endl<<endl;
+        cin.clear( ); cin.ignore(10000,'\n');
+        i++;
+      } 
       cout << "  :o Twoja odpowiedz: "; 
       cin >> Skl;
       flag = cin.good();
-    }
+    } while(!flag && i < 3);
 
-    if (flag){
-      if(Skl == Oblicz(WyrZ_PytanieTestowe)){
+    if (flag)
+    {
+      if(Skl == Wynik)
+      {
         Poprawna(Stats);
         cout<<"  :) Odpowiedz poprawna"<<endl<<endl;
       }
-      else {
+      else 
+      {
         Bledna(Stats);
-        cout << "  :( Blad. Prawidlowym wynikiem jest: " << Oblicz(WyrZ_PytanieTestowe) << endl << endl;
+        cout << "  :( Blad. Prawidlowym wynikiem jest: " << Wynik << endl << endl;
       }
     } 
-    else{
-      cout << "  :! Blad zapisu liczby zespolonej po raz 2. Brak mozliwosci poprawy" << endl << endl;
+    else
+    {
+      cout << "  :! Blad zapisu liczby zespolonej po raz 3. Brak mozliwosci poprawy" << endl << endl;
       Bledna(Stats);
     }
 
     cout<<endl;
     cin.clear( ); cin.ignore(10000,'\n');
   }
-  Wyswietl(Stats);
+  
+  cout<<Stats;
 
   cout << endl;
   cout << " Koniec testu" << endl;

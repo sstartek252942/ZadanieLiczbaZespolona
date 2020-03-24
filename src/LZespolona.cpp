@@ -68,8 +68,12 @@ double Modul (LZespolona  Skl)
 
 LZespolona  operator / (LZespolona  Skl,  double  a)
 {
-  Skl.re /= a;
-  Skl.im /= a;
+  if (a != 0)
+  {
+    Skl.re /= a;
+    Skl.im /= a;
+  } else std::cerr << "Dzielenie przez 0" << endl;
+
   return Skl;
 }
 
@@ -82,7 +86,7 @@ bool  operator == (LZespolona  Skl1,  LZespolona  Skl2)
 
 bool  operator != (LZespolona  Skl1,  LZespolona  Skl2)
 {
-  return (Skl2.im != Skl2.im || Skl1.re != Skl2.re);
+  return !(Skl2.im == Skl2.im); 	//(Skl2.im != Skl2.im || Skl1.re != Skl2.re)
 }
 
 /*!

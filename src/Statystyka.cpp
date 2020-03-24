@@ -21,15 +21,22 @@ void Bledna (Statystyka & Stats)
   Stats.b++;
 }
 
-double Procent (Statystyka & Stats)
+int Wszystkie(Statystyka & Stats)
 {
-  return Stats.p * 100 / (Stats.b+Stats.p);
+  return Stats.b+Stats.p;
 }
 
-void Wyswietl (Statystyka & Stats)
+double Procent (Statystyka & Stats)
 {
-  cout << " Ilosc pytan:" << Stats.p + Stats.b << endl;
-  cout << " Poprawne:" << Stats.p << endl;
-  cout << " Bledne:" << Stats.b << endl;
-  cout << " Procent poprawnych:" << Procent(Stats) << '%' << endl;
+  return Stats.p * 100 / Wszystkie(Stats);
+}
+
+std::ostream & operator << (std::ostream & strm, Statystyka & Stats)
+{
+  strm << " Ilosc pytan:" << Wszystkie(Stats) << endl;
+  strm << " Poprawne:" << Stats.p << endl;
+  strm << " Bledne:" << Stats.b << endl;
+  strm << " Procent poprawnych:" << Procent(Stats) << '%' << endl;
+
+  return strm;
 }

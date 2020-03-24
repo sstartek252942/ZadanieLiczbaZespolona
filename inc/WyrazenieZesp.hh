@@ -25,11 +25,12 @@ struct WyrazenieZesp {
  * Funkcje ponizej nalezy zdefiniowac w module.
  *
  */
-std::istream & operator >>(std::istream & strm, WyrazenieZesp  WyrZ);
-std::istream & operator >>(std::istream & strm, Operator Op);
 
-std::ostream & operator <<(std::ostream & strm, WyrazenieZesp  WyrZ);
+std::ostream & operator <<(std::ostream & strm, WyrazenieZesp WyrZ);
 std::ostream & operator <<(std::ostream & strm, Operator Op);
+
+std::istream & operator >>(std::istream & strm, WyrazenieZesp & WyrZ);
+std::istream & operator >>(std::istream & strm, Operator & Op);
 
 LZespolona Oblicz(WyrazenieZesp  WyrZ);
 
