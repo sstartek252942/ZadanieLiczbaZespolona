@@ -35,12 +35,15 @@ std::istream & operator >> (std::istream & strm, Operator & Op)
 {
   char znak;
   strm >> znak;
-  switch(znak) {
-    case '+': Op = Op_Dodaj;
-    case '-': Op = Op_Odejmij;
-    case '*': Op = Op_Mnoz;  
-    case '/': Op = Op_Dziel;
+  switch(znak) 
+  {
+    case '+': Op = Op_Dodaj;	break;
+    case '-': Op = Op_Odejmij;	break;
+    case '*': Op = Op_Mnoz;	break;  
+    case '/': Op = Op_Dziel;	break;
+    default: strm.setstate(std::ios::failbit); 	break;
   }
+  //std::cout<<"YES"<<std::endl;
   return strm;
 }
 

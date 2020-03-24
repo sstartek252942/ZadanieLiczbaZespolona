@@ -17,7 +17,7 @@ struct BazaTestu {
   unsigned int    IndeksPytania; /* Numer pytania, ktore ma byc pobrane jako nastepne */
 };
 
-
+int WczytajPlik(WyrazenieZesp *TestPlik, std::istream & plik);
 /*
  * Inicjalizuje test powiazany z dana nazwa.
  */

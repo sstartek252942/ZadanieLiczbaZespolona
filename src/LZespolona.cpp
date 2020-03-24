@@ -72,7 +72,7 @@ LZespolona  operator / (LZespolona  Skl,  double  a)
   {
     Skl.re /= a;
     Skl.im /= a;
-  } else std::cerr << "Dzielenie przez 0" << endl;
+  } else std::cerr << "Dzielenie przez 0" << std::endl;
 
   return Skl;
 }

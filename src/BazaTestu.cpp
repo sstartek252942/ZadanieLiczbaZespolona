@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <cstring>
 #include <cassert>
 #include "BazaTestu.hh"
@@ -62,7 +63,20 @@ void UstawTest( BazaTestu *wskBazaTestu, WyrazenieZesp *wskTabTestu, unsigned in
 }
 
 
+int WczytajPlik(WyrazenieZesp *TestPlik, std::istream & plik, int max)
+{
+  WyrazenieZesp   WyrZ_PytanieTestowe;
+  int index = 0;
 
+  plik >> WyrZ_PytanieTestowe;
+  while(!plik.eof() && plik.good() && index < max)
+  {
+     TestPlik[index] = WyrZ_PytanieTestowe;
+     index++;
+     plik >> WyrZ_PytanieTestowe;
+  }
+  return index;
+}
 
 /*
  * Inicjalizuje test kojarzac zmienna dostepna poprzez wskaznik wskBazaTestu
@@ -92,6 +106,18 @@ bool InicjalizujTest( BazaTestu  *wskBazaTestu, const char *sNazwaTestu )
 
   if (!strcmp(sNazwaTestu,"trudny")) {
     UstawTest(wskBazaTestu,TestTrudny,sizeof(TestTrudny)/sizeof(WyrazenieZesp));
+    return true;
+  }
+
+  std::fstream plik;
+  plik.open(sNazwaTestu, std::ios::in);
+  if(plik.good() == true)
+  {
+    int ilejest, ilepowinno; //ilejest - ilosc wczytanych liczb, ilepowinno - ilosc pytan opisane wg pliku 
+    plik >> ilepowinno; 
+    WyrazenieZesp *TestPlik = (WyrazenieZesp*) malloc (sizeof(WyrazenieZesp) * ilepowinno);
+    ilejest = WczytajPlik (TestPlik, plik, ilepowinno);
+    UstawTest(wskBazaTestu,TestPlik,ilejest);
     return true;
   }
   /*

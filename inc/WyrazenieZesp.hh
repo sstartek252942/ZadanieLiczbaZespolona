@@ -21,6 +21,8 @@ struct WyrazenieZesp {
 };
 
 
+
+
 /*
  * Funkcje ponizej nalezy zdefiniowac w module.
  *

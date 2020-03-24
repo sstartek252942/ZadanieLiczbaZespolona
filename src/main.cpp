@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "BazaTestu.hh"
 #include "Statystyka.hh"
 
