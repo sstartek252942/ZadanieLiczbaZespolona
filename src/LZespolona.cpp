@@ -1,4 +1,5 @@
 #include <iostream>
+#include <assert.h>
 #include <cmath>
 #include "LZespolona.hh"
 
@@ -68,11 +69,11 @@ double Modul (LZespolona  Skl)
 
 LZespolona  operator / (LZespolona  Skl,  double  a)
 {
-  if (a != 0)
-  {
+    assert(a != 0);
+  //std::cerr << "Dzielenie przez 0" << std::endl;
     Skl.re /= a;
     Skl.im /= a;
-  } else std::cerr << "Dzielenie przez 0" << std::endl;
+  
 
   return Skl;
 }
