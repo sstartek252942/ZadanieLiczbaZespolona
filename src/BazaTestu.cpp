@@ -117,6 +117,7 @@ bool InicjalizujTest( BazaTestu  *wskBazaTestu, const char *sNazwaTestu )
     plik >> ilepowinno; 
     WyrazenieZesp *TestPlik = (WyrazenieZesp*) malloc (sizeof(WyrazenieZesp) * ilepowinno);
     ilejest = WczytajPlik (TestPlik, plik, ilepowinno);
+    if (ilejest != ilepowinno) std::cerr << "Napotkano blad i nie wczytano wszytskich pytan"<<std::endl;
     UstawTest(wskBazaTestu,TestPlik,ilejest);
     return true;
   }
